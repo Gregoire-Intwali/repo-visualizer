@@ -1,0 +1,21 @@
+on:
+  push:
+    branches:
+    - main
+jobs:
+  visualize:
+    name: visualize artifact
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@master
+    - name: Update diagram
+      uses: githubocto/repo-visualizer@0.7.1
+      with:
+        output_file: "images/diagram.svg"
+        excluded_paths: "dist,node_modules"
+    - name: Get artifact
+      uses: actions/download-artifact@v2
+      with:
+        name: "my-diagram"
+        path: "downloads"
